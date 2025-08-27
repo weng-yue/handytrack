@@ -3,7 +3,7 @@ import pandas as pd
 from PIL import Image, ImageTk
 import tkinter as tk
 from tkinter import messagebox
-
+#path of tracks and dataset
 PIC_FOLDER = r"/Users/suman/Downloads/GitHub/intern_flowtrack/FFIL/xy_dataset_2"
 TRACK_FOLDER = r"/Users/suman/Downloads/GitHub/intern_flowtrack/FFIL/tracks_dataset_2"
 
