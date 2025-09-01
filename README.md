@@ -6,7 +6,7 @@ h - Show Saved Tracks
 n - New Track  
 s - Save CSV  
 t - Threshold
-
+o - Open Folder
 
 Yue made a change @ 19:17
 
