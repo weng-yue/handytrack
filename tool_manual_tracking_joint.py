@@ -7,6 +7,8 @@ from tkinter import ttk, messagebox
 # path of tracks and dataset
 PIC_FOLDER = r"/Users/suman/Downloads/GitHub/intern_flowtrack/FFIL/xy_dataset_2"
 TRACK_FOLDER = r"/Users/suman/Downloads/GitHub/intern_flowtrack/FFIL/tracks_dataset_2"
+PIC_FOLDER = r"C:\Users\grant\Desktop\FFIL\xy_2"
+TRACK_FOLDER = r"C:\Users\grant\Desktop\FFIL\tracks"
 
 IMAGE_EXTENSIONS = [".tif"]
 
