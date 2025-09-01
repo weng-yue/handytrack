@@ -13,4 +13,4 @@ Yue made a change @ 19:17
 Authors - 
 
 Grant Zeng: Welcome to handyman! I am a senior doing 
-PSEO classes at the UMN. Some hobbies of mine are playing volleyball, Valorant, and getting boba! 
+PSEO classes at the UMN. Some hobbies of mine are playing volleyball, Valorant, and eating boba! 
