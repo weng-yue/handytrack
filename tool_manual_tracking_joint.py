@@ -373,4 +373,3 @@ if __name__ == "__main__":
     root = tk.Tk()
     app = ManualTifTracker(root)
     root.mainloop()
-fghghfdffdgdfg - i like chunky lucsious boba balls
