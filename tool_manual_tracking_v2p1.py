@@ -2,7 +2,7 @@ import os
 import pandas as pd
 from PIL import Image, ImageTk
 import tkinter as tk
-from tkinter import ttk, messagebox
+from tkinter import ttk, messagebox, filedialog
 
 # path of tracks and dataset
 PIC_FOLDER = r"/Users/suman/Downloads/GitHub/intern_flowtrack/FFIL/xy_dataset_2"
@@ -46,6 +46,10 @@ class ManualTifTracker:
         ttk.Button(control_row1, text="Save CSV (s)", command=self.save_csv).pack(side="left", padx=5)
         self.toggle_thresh_button = ttk.Button(control_row1, text="Threshold (t)", command=self.toggle_threshold)
         self.toggle_thresh_button.pack(side="left", padx=5)
+
+        # --- NEW BUTTON: Open Tracks Folder ---
+        ttk.Button(control_row1, text="Open Tracks (o)", command=self.open_tracks_folder).pack(side="left", padx=5)
+
         ttk.Label(control_row1, text="Skip Gap:").pack(side="left", padx=5)
         self.gap_var = tk.IntVar(value=1)
         spin = tk.Spinbox(control_row1, from_=1, to=100, textvariable=self.gap_var, width=5, state="readonly",
@@ -65,7 +69,8 @@ class ManualTifTracker:
         control_row2.pack(fill="x", side="top", pady=3)
         ttk.Checkbutton(control_row2, text="Show Track History", variable=self.show_saved_history,
                         command=self.show_frame).pack(side="left", padx=5)
-        self.show_saved_button = ttk.Button(control_row2, text="Show Saved Tracks (h)", command=self.toggle_show_saved_tracks)
+        self.show_saved_button = ttk.Button(control_row2, text="Show Saved Tracks (h)",
+                                            command=self.toggle_show_saved_tracks)
         self.show_saved_button.pack(side="left", padx=5)
         self.frame_label = ttk.Label(control_row2, text="Frame: 0")
         self.frame_label.pack(side="left", padx=10)
@@ -125,6 +130,7 @@ class ManualTifTracker:
         self.root.bind("s", lambda e: self.save_csv())
         self.root.bind("t", lambda e: self.toggle_threshold())
         self.root.bind("h", lambda e: self.toggle_show_saved_tracks())
+        self.root.bind("o", lambda e: self.open_tracks_folder())
 
         self.load_tif_folder(PIC_FOLDER)
         self.update_total_tracks_label()
@@ -187,7 +193,7 @@ class ManualTifTracker:
         self.slider.config(from_=1, to=len(self.tif_paths))
         self.show_frame()
 
-    def show_frame(self):
+    def show_frame(self, event=None):
         self.canvas.delete("all")
         if not self.tif_paths or not (0 <= self.current_index < len(self.tif_paths)):
             return
@@ -354,7 +360,7 @@ class ManualTifTracker:
             total = 0
         else:
             total = len([f for f in os.listdir(TRACK_FOLDER) if f.endswith(".csv") and f.startswith("track_")])
-        self.total_tracks_label.config(text=f"Total Tracks: {total+1}")
+        self.total_tracks_label.config(text=f"Total Tracks: {total}")
 
     def jump_to_frame(self):
         try:
@@ -368,9 +374,23 @@ class ManualTifTracker:
         except ValueError:
             messagebox.showwarning("Invalid Input", "Please enter a valid number.")
 
+    def open_tracks_folder(self):
+        """Opens the TRACK_FOLDER directory in the system's file explorer."""
+        if not os.path.exists(TRACK_FOLDER):
+            messagebox.showwarning("Folder Not Found", f"The directory '{TRACK_FOLDER}' does not exist.")
+            return
+
+        try:
+            # Platform-specific commands to open a folder
+            if os.name == 'nt':  # Windows
+                os.startfile(TRACK_FOLDER)
+            elif os.name == 'posix':  # macOS, Linux
+                os.system(f'open "{TRACK_FOLDER}"' if os.uname().sysname == 'Darwin' else f'xdg-open "{TRACK_FOLDER}"')
+        except Exception as e:
+            messagebox.showerror("Error", f"Failed to open folder: {e}")
+
 
 if __name__ == "__main__":
     root = tk.Tk()
     app = ManualTifTracker(root)
     root.mainloop()
-fghghfdffdgdfg - i like chunky lucsious boba balls
