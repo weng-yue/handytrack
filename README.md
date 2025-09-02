@@ -8,7 +8,6 @@ s - Save CSV
 t - Threshold
 o - Open Folder
 
-Yue made a change @ 19:17
 
 Authors - 
 
