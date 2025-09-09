@@ -2,13 +2,7 @@ import os
 import pandas as pd
 from PIL import Image, ImageTk
 import tkinter as tk
-from tkinter import ttk, messagebox
-
-# path of tracks and dataset
-PIC_FOLDER = r"/Users/suman/Downloads/GitHub/intern_flowtrack/FFIL/xy_dataset_2"
-TRACK_FOLDER = r"/Users/suman/Downloads/GitHub/intern_flowtrack/FFIL/tracks_dataset_2"
-PIC_FOLDER = r"C:\Users\grant\Desktop\FFIL\xy_2"
-TRACK_FOLDER = r"C:\Users\grant\Desktop\FFIL\tracks"
+from tkinter import ttk, messagebox, filedialog
 
 IMAGE_EXTENSIONS = [".tif"]
 
@@ -40,6 +34,18 @@ class ManualTifTracker:
         self.csv_path = None
         self.tk_image = None
         self.threshold_enabled = False
+
+        # --- Ask user for folders ---
+        messagebox.showinfo("Select Image Folder", "Please select the folder containing your track images.")
+        self.pic_folder = filedialog.askdirectory(title="Select Image Folder")
+
+        messagebox.showinfo("Select Track Folder", "Please select the folder where track CSVs will be saved.")
+        self.track_folder = filedialog.askdirectory(title="Select Track Folder")
+
+        if not self.pic_folder or not self.track_folder:
+            messagebox.showerror("Error", "You must select both an image folder and a track folder.")
+            root.destroy()
+            return
 
         # First control row
         control_row1 = ttk.Frame(self.root)
@@ -128,7 +134,7 @@ class ManualTifTracker:
         self.root.bind("t", lambda e: self.toggle_threshold())
         self.root.bind("h", lambda e: self.toggle_show_saved_tracks())
 
-        self.load_tif_folder(PIC_FOLDER)
+        self.load_tif_folder(self.pic_folder)
         self.update_total_tracks_label()
 
     # --------------------- THEME FUNCTIONS ---------------------
@@ -299,8 +305,8 @@ class ManualTifTracker:
         first_frame = df["frame"].min()
         last_frame = df["frame"].max()
         base_name = f"track_{first_frame:04d}_{last_frame:04d}.csv"
-        os.makedirs(TRACK_FOLDER, exist_ok=True)
-        base_path = os.path.join(TRACK_FOLDER, base_name)
+        os.makedirs(self.track_folder, exist_ok=True)
+        base_path = os.path.join(self.track_folder, base_name)
         count = 1
         candidate_path = base_path
         while os.path.exists(candidate_path):
@@ -320,16 +326,16 @@ class ManualTifTracker:
         if not self.tif_paths:
             return
         current_frame = self.current_index + 1
-        if not os.path.exists(TRACK_FOLDER):
+        if not os.path.exists(self.track_folder):
             return
-        for file in os.listdir(TRACK_FOLDER):
+        for file in os.listdir(self.track_folder):
             if file.endswith(".csv") and file.startswith("track_"):
                 try:
                     parts = file[:-4].split("_")
                     start_id = int(parts[1])
                     end_id = int(parts[2])
                     if start_id <= current_frame <= end_id:
-                        df = pd.read_csv(os.path.join(TRACK_FOLDER, file))
+                        df = pd.read_csv(os.path.join(self.track_folder, file))
                         for _, row in df.iterrows():
                             if int(row['frame']) == current_frame or (
                                     self.show_saved_history.get() and int(row['frame']) < current_frame):
@@ -352,10 +358,10 @@ class ManualTifTracker:
         self.show_frame()
 
     def update_total_tracks_label(self):
-        if not os.path.exists(TRACK_FOLDER):
+        if not os.path.exists(self.track_folder):
             total = 0
         else:
-            total = len([f for f in os.listdir(TRACK_FOLDER) if f.endswith(".csv") and f.startswith("track_")])
+            total = len([f for f in os.listdir(self.track_folder) if f.endswith(".csv") and f.startswith("track_")])
         self.total_tracks_label.config(text=f"Total Tracks: {total+1}")
 
     def jump_to_frame(self):
