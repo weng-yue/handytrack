@@ -2,11 +2,7 @@ import os
 import pandas as pd
 from PIL import Image, ImageTk
 import tkinter as tk
-from tkinter import ttk, messagebox
-
-# path of tracks and dataset
-PIC_FOLDER = r"C:\Users\grant\Desktop\FFIL\xy_2"
-TRACK_FOLDER = r"C:\Users\grant\Desktop\FFIL\tracks_2"
+from tkinter import ttk, messagebox, filedialog
 
 IMAGE_EXTENSIONS = [".tif"]
 
@@ -18,10 +14,14 @@ HISTORY_LINE_WIDTH = 2
 
 
 class ManualTifTracker:
-    def __init__(self, root):
+    def __init__(self, root, pic_folder, track_folder):
         self.root = root
         self.root.title("Manual Tracker with Threshold, Path, and Scaling")
         self.root.geometry("800x800")
+
+        # Store user-selected folders
+        self.pic_folder = pic_folder
+        self.track_folder = track_folder
 
         # ---- THEME STYLING ----
         self.style = ttk.Style()
@@ -126,7 +126,7 @@ class ManualTifTracker:
         self.root.bind("t", lambda e: self.toggle_threshold())
         self.root.bind("h", lambda e: self.toggle_show_saved_tracks())
 
-        self.load_tif_folder(PIC_FOLDER)
+        self.load_tif_folder(self.pic_folder)
         self.update_total_tracks_label()
 
     # --------------------- THEME FUNCTIONS ---------------------
@@ -297,8 +297,8 @@ class ManualTifTracker:
         first_frame = df["frame"].min()
         last_frame = df["frame"].max()
         base_name = f"track_{first_frame:04d}_{last_frame:04d}.csv"
-        os.makedirs(TRACK_FOLDER, exist_ok=True)
-        base_path = os.path.join(TRACK_FOLDER, base_name)
+        os.makedirs(self.track_folder, exist_ok=True)
+        base_path = os.path.join(self.track_folder, base_name)
         count = 1
         candidate_path = base_path
         while os.path.exists(candidate_path):
@@ -318,16 +318,16 @@ class ManualTifTracker:
         if not self.tif_paths:
             return
         current_frame = self.current_index + 1
-        if not os.path.exists(TRACK_FOLDER):
+        if not os.path.exists(self.track_folder):
             return
-        for file in os.listdir(TRACK_FOLDER):
+        for file in os.listdir(self.track_folder):
             if file.endswith(".csv") and file.startswith("track_"):
                 try:
                     parts = file[:-4].split("_")
                     start_id = int(parts[1])
                     end_id = int(parts[2])
                     if start_id <= current_frame <= end_id:
-                        df = pd.read_csv(os.path.join(TRACK_FOLDER, file))
+                        df = pd.read_csv(os.path.join(self.track_folder, file))
                         for _, row in df.iterrows():
                             if int(row['frame']) == current_frame or (
                                     self.show_saved_history.get() and int(row['frame']) < current_frame):
@@ -350,10 +350,10 @@ class ManualTifTracker:
         self.show_frame()
 
     def update_total_tracks_label(self):
-        if not os.path.exists(TRACK_FOLDER):
+        if not os.path.exists(self.track_folder):
             total = 0
         else:
-            total = len([f for f in os.listdir(TRACK_FOLDER) if f.endswith(".csv") and f.startswith("track_")])
+            total = len([f for f in os.listdir(self.track_folder) if f.endswith(".csv") and f.startswith("track_")])
         self.total_tracks_label.config(text=f"Total Tracks: {total+1}")
 
     def jump_to_frame(self):
@@ -370,6 +370,22 @@ class ManualTifTracker:
 
 
 if __name__ == "__main__":
+    # Ask user for dataset and track folders before showing main window
     root = tk.Tk()
-    app = ManualTifTracker(root)
+    root.withdraw()  # Hide until folders chosen
+
+    pic_folder = filedialog.askdirectory(title="Select the dataset folder (particle images)")
+    if not pic_folder:
+        messagebox.showerror("No Folder Selected", "You must select a dataset folder.")
+        root.destroy()
+        exit()
+
+    track_folder = filedialog.askdirectory(title="Select the folder to save tracked particles")
+    if not track_folder:
+        messagebox.showerror("No Folder Selected", "You must select a track folder.")
+        root.destroy()
+        exit()
+
+    root.deiconify()  # Show main window
+    app = ManualTifTracker(root, pic_folder, track_folder)
     root.mainloop()
