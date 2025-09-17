@@ -46,6 +46,7 @@ class ManualTifTracker:
         ttk.Button(control_row1, text="Save CSV (s)", command=self.save_csv).pack(side="left", padx=5)
         self.toggle_thresh_button = ttk.Button(control_row1, text="Threshold (t)", command=self.toggle_threshold)
         self.toggle_thresh_button.pack(side="left", padx=5)
+        ttk.Button(control_row1, text="Settings", command=self.show_settings_window).pack(side="left", padx=5)
         ttk.Label(control_row1, text="Skip Gap:").pack(side="left", padx=5)
         self.gap_var = tk.IntVar(value=1)
         spin = tk.Spinbox(control_row1, from_=1, to=100, textvariable=self.gap_var, width=5, state="readonly",
@@ -160,6 +161,54 @@ class ManualTifTracker:
         self.current_theme = "light" if self.current_theme == "dark" else "dark"
         self.mode_var.set("Dark" if self.current_theme == "dark" else "Light")
         self.set_theme(self.current_theme)
+
+    def show_settings_window(self):
+        settings_window = tk.Toplevel(self.root)
+        settings_window.title("Settings - Key Bindings")
+        settings_window.geometry("300x300")
+        settings_window.configure(bg="#2E2E2E")
+
+        tk.Label(settings_window, text="Change Key Bindings", font=("Helvetica", 14, "bold"),
+                 fg="white", bg="#2E2E2E").pack(pady=10)
+
+        # Store keybinds in a dict for easy modification
+        keybinds = {
+            "Start New Track": ["n", lambda e: self.start_new_track()],
+            "Save CSV": ["s", lambda e: self.save_csv()],
+            "Toggle Threshold": ["t", lambda e: self.toggle_threshold()],
+            "Toggle Show Tracks": ["h", lambda e: self.toggle_show_saved_tracks()],
+            "Next Frame": ["period", lambda e: self.goto_next_frame()],
+            "Previous Frame": ["comma", lambda e: self.goto_prev_frame()],
+        }
+
+        frame = tk.Frame(settings_window, bg="#2E2E2E")
+        frame.pack(fill="both", expand=True, pady=10)
+
+        # Display each keybind with a change button
+        for action, (key, callback) in keybinds.items():
+            row = tk.Frame(frame, bg="#2E2E2E")
+            row.pack(fill="x", pady=5)
+
+            tk.Label(row, text=f"{action}: ", font=("Helvetica", 11), fg="white", bg="#2E2E2E").pack(side="left",
+                                                                                                     padx=5)
+            key_label = tk.Label(row, text=key, font=("Helvetica", 11, "bold"), fg="orange", bg="#2E2E2E")
+            key_label.pack(side="left", padx=5)
+
+            def make_change_fn(action_name=action, key_label=key_label, callback=callback):
+                def change_key():
+                    key_label.config(text="Press a key...")
+
+                    def on_key_press(event):
+                        new_key = event.keysym
+                        key_label.config(text=new_key)
+                        self.root.bind(new_key, callback)  # Rebind to new key
+                        settings_window.unbind("<Key>")
+
+                    settings_window.bind("<Key>", on_key_press)
+
+                return change_key
+
+            ttk.Button(row, text="Change", command=make_change_fn()).pack(side="right", padx=5)
 
     # --------------------- TRACKING & UI FUNCTIONS ---------------------
     def validate_number(self, value_if_allowed):
