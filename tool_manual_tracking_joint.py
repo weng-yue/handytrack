@@ -370,22 +370,53 @@ class ManualTifTracker:
 
 
 if __name__ == "__main__":
-    # Ask user for dataset and track folders before showing main window
     root = tk.Tk()
-    root.withdraw()  # Hide until folders chosen
+    root.withdraw()  # Hide main window until setup is done
 
-    pic_folder = filedialog.askdirectory(title="Select the dataset folder (particle images)")
+    def ask_for_folder(title, message):
+        popup = tk.Toplevel()
+        popup.title(title)
+        popup.geometry("350x150")
+        popup.configure(bg="#2E2E2E")
+
+        label = tk.Label(popup, text=message, font=("Helvetica", 12), fg="white", bg="#2E2E2E")
+        label.pack(pady=15)
+
+        folder_var = tk.StringVar()
+
+        def browse_folder():
+            folder = filedialog.askdirectory(title=title)
+            if folder:
+                folder_var.set(folder)
+                popup.destroy()
+
+        browse_button = ttk.Button(popup, text="Browse", command=browse_folder)
+        browse_button.pack(pady=10)
+
+        popup.grab_set()  # Make this popup modal
+        popup.wait_window()
+
+        return folder_var.get()
+
+    pic_folder = ask_for_folder(
+        "Select Dataset Folder",
+        "Please select the dataset folder containing your particle images."
+    )
     if not pic_folder:
         messagebox.showerror("No Folder Selected", "You must select a dataset folder.")
         root.destroy()
         exit()
 
-    track_folder = filedialog.askdirectory(title="Select the folder to save tracked particles")
+    track_folder = ask_for_folder(
+        "Select Track Folder",
+        "Please select the folder where tracked particle data will be saved."
+    )
     if not track_folder:
         messagebox.showerror("No Folder Selected", "You must select a track folder.")
         root.destroy()
         exit()
 
-    root.deiconify()  # Show main window
+    root.deiconify()  # Show main window after setup
     app = ManualTifTracker(root, pic_folder, track_folder)
     root.mainloop()
+
