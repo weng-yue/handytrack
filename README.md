@@ -147,8 +147,6 @@ The GUI has the following sections:
 
 ---
 
-Do you want me to also include **screenshots with callouts** (I can generate them) so this reads like a polished PDF-style manual?
-
 
 
 Authors - 
