@@ -1,4 +1,136 @@
 import os
+"""
+ManualTifTracker: A Tkinter-based manual tracking tool for .tif image sequences.
+
+This tool allows users to manually track points across frames of .tif images, save tracks to CSV, 
+and visualize both current and previously saved tracks. It supports thresholding, frame navigation, 
+track interpolation, and customizable key bindings. The UI supports both dark and light themes.
+
+Classes:
+--------
+ManualTifTracker
+    Main application class for manual tracking of .tif image sequences.
+
+Functions:
+----------
+ask_for_folder(title, message)
+    Helper function to prompt the user to select a folder via a modal dialog.
+
+Usage:
+------
+Run the script directly. The user will be prompted to select the image dataset folder and the folder 
+to save tracking data. The main window then launches for manual tracking.
+
+Dependencies:
+-------------
+- Python 3.x
+- tkinter
+- pandas
+- Pillow (PIL)
+
+Author:
+-------
+[Your Name or Organization]
+"""
+
+"""
+    ManualTifTracker: Main application class for manual tracking of .tif image sequences.
+
+    Attributes:
+    -----------
+    root : tk.Tk
+        The main Tkinter root window.
+    pic_folder : str
+        Path to the folder containing .tif images.
+    track_folder : str
+        Path to the folder where tracking CSV files are saved.
+    style : ttk.Style
+        Tkinter style object for theming.
+    current_theme : str
+        Current theme ("dark" or "light").
+    tif_paths : list
+        List of paths to .tif images.
+    current_index : int
+        Index of the currently displayed frame.
+    tracks : list
+        List of dicts representing the current track.
+    csv_path : str
+        Path to the last saved CSV file.
+    threshold_enabled : bool
+        Whether thresholding is enabled for image display.
+    show_saved_flag : bool
+        Whether to show saved tracks overlay.
+    show_saved_history : tk.BooleanVar
+        Whether to show history of saved tracks.
+    tk_image : ImageTk.PhotoImage
+        Current image displayed on the canvas.
+    display_scale : float
+        Scale factor for displaying images on the canvas.
+
+    Methods:
+    --------
+    set_theme(theme)
+        Set the UI theme (dark or light).
+    toggle_theme()
+        Toggle between dark and light themes.
+    show_settings_window()
+        Display a window for changing key bindings.
+    validate_number(value_if_allowed)
+        Validate numeric input for frame jumping.
+    update_jump_entry()
+        Update the jump-to-frame entry box.
+    toggle_threshold()
+        Enable or disable thresholding for image display.
+    load_tif_folder(folder)
+        Load .tif images from the specified folder.
+    show_frame()
+        Display the current frame and overlays on the canvas.
+    on_click(event)
+        Handle mouse click events for adding track points.
+    on_mouse_move(event)
+        Update coordinate label based on mouse position.
+    on_slider_move(value)
+        Handle slider movement for frame navigation.
+    goto_next_frame()
+        Advance to the next frame.
+    goto_prev_frame()
+        Go back to the previous frame.
+    on_mouse_scroll(event)
+        Handle mouse wheel scrolling for frame navigation (Windows/Mac).
+    on_mouse_scroll_linux(event)
+        Handle mouse wheel scrolling for frame navigation (Linux).
+    save_csv()
+        Save the current track to a CSV file.
+    toggle_show_saved_tracks()
+        Toggle the display of saved tracks overlay.
+    show_saved_tracks()
+        Overlay saved tracks from CSV files on the current frame.
+    start_new_track()
+        Clear the current track and start a new one.
+    update_total_tracks_label()
+        Update the label showing the total number of saved tracks.
+    jump_to_frame()
+        Jump to a specific frame based on user input.
+    """
+
+    # ... (rest of the class code)
+
+"""
+    Prompt the user to select a folder using a modal dialog.
+
+    Parameters:
+    -----------
+    title : str
+        The title of the popup window.
+    message : str
+        The message to display in the popup.
+
+    Returns:
+    --------
+    str
+        The selected folder path, or an empty string if cancelled.
+    """
+    # ... (function code)
 import pandas as pd
 from PIL import Image, ImageTk
 import tkinter as tk
