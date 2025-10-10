@@ -25,6 +25,7 @@ Two folder selection popups will appear:
 
 * **Dataset Folder** → choose the folder containing your `.tif` images.
 * **Track Folder** → choose the folder where CSV files will be saved.
+* **Sample Dataset** → if no dataset is available, a sample dataset titled 'xy-sample' is available.
 
 The main window will then open.
 
