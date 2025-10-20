@@ -16,7 +16,7 @@ This GUI allows you to manually track particles across .tif images, view and edi
 
 Sathvik Muddasani -       
 
-Hello, my name is Sathvik Muddasani, and I am one of the authors of this User Interface. I was born in Oregon and have moved around all over the country including Chicago, Minnesota twice, New York, Texas twice, and California before landing back in Minnesota for the third time. I love the summers, but I gotta say, I miss the Texas winters. I also miss rooting for a football team that didn't give me a heart attack every 5 seconds.
+Hello, my name is Sathvik Muddasani, and I am one of the authors of this User Interface. I was born in Oregon and have moved around all over the country including Chicago, Minnesota twice, New York, Texas twice, and California before landing back in Minnesota for the third time. I love the summers, but I gotta say, I miss the Texas winters. I also miss rooting for a football team that didn't give me a heart attack every 5 seconds. The Vikings sure know how to keep us on the edge of our seats. 
 
 
 I am currently a senior in Math and Science Academy doing full time PSEO classes at the University of Minnesota. I plan on pursuing Mechanical engineering in college and a masters in Aerospace.
