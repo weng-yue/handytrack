@@ -12,6 +12,23 @@ Manual image tracking tool with hotkey controls, mouse scroller navigation, and 
 This GUI allows you to manually track particles across .tif images, view and edit tracks, and export tracking data into CSV files.
 
 ---
+**Authors** 
+
+Sathvik Muddasani -       
+
+Hello, my name is Sathvik Muddasani, and I am one of the authors of this User Interface. I was born in Oregon and have moved around all over the country including Chicago, Minnesota twice, New York, Texas twice, and California before landing back in Minnesota for the third time. I love the summers, but I gotta say, I miss the Texas winters. I also miss rooting for a football team that didn't give me a heart attack every 5 seconds.
+
+
+I am currently a senior in Math and Science Academy doing full time PSEO classes at the University of Minnesota. I plan on pursuing Mechanical engineering in college and a masters in Aerospace.
+
+
+Some of my hobbies are playing football with my friends and videogames. I also love going on vacation. I enjoy traveling to the corners of the planet to see and experience amazing things. I hope to continue to travel the world for as long as I can.
+
+
+
+Grant Zeng
+
+---
 
 ## 1. 🖥️ Starting the Program
 
@@ -25,7 +42,6 @@ Two folder selection popups will appear:
 
 * **Dataset Folder** → choose the folder containing your `.tif` images.
 * **Track Folder** → choose the folder where CSV files will be saved.
-* **Sample Dataset** → if no dataset is available, a sample dataset titled 'xy-sample' is available.
 
 The main window will then open.
 
