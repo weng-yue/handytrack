@@ -26,7 +26,14 @@ Some of my hobbies are playing football with my friends and videogames. I also l
 
 
 
-Grant Zeng
+Grant Zeng - 
+
+Hello, my name is Grant Zeng, and I’m one of the authors of this User Interface. I was born and raised in Minnesota, where I’ve spent most of my life balancing academics, athletics, and music. I’ve always loved the energy of Minnesota summers, especially when I’m on the court playing volleyball, but I could definitely do without the freezing winters. 
+
+I’m currently a senior at Math and Science Academy, taking full-time PSEO classes at the University of Minnesota and Century College. I plan to study engineering in college, with a strong interest in applying problem-solving and creativity to real-world technology and design challenges.
+
+Some of my hobbies are volleyball, weightlifting, and video games. One thing on my bucketlist is to go to space. 
+
 
 ---
 
