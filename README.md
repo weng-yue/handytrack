@@ -29,7 +29,9 @@ I am currently a senior in Math and Science Academy doing full time PSEO classes
 
 Some of my hobbies are playing football with my friends and videogames. I also love going on vacation. I enjoy traveling to the corners of the planet to see and experience amazing things. I hope to continue to travel the world for as long as I can.
 
+Saad Wajidi - 
 
+My name is Saad Wajidi, and I'm an author of this User Interface. I was born in Minnesota, and I like doing karate, skateboarding, and traveling the country. I'm a senior at Math and Science Academy, as well as a PSEO student at the University of Minnesota. I plan on studying chemical engineering in college, mainly focusing on the software side of technology.
 
 Grant Zeng - 
 
