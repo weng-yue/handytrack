@@ -2,14 +2,19 @@
 
 ---
 
-# HandyTrack – Manual image tracking tool
+# HandyTrack – Manual Particle Tracking GUI
 
-Manual image tracking tool with hotkey controls, mouse scroller navigation, and interpolation to fill trajectories.
+Version 1.0 — University of Minnesota, FFIL Lab
 
----
+HandyTrack is a Python-based graphical tool for manual particle tracking in image sequences. It provides frame navigation, hotkey-driven interaction, threshold visualization, and interpolation-based trajectory completion. 
 
-📖 **Manual Tracker – User Guide**
-This GUI allows you to manually track particles across .tif images, view and edit tracks, and export tracking data into CSV files.
+[//]: # (Tracking data is exported as CSV files compatible with downstream analysis pipelines.)
+
+[//]: # (---)
+
+[//]: # (📖 **Manual Tracker – User Guide**)
+
+[//]: # (This GUI allows you to manually track particles across .tif images, view and edit tracks, and export tracking data into CSV files.)
 
 ---
 **Authors** 
