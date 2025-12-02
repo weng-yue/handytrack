@@ -42,7 +42,7 @@ Some of my hobbies are volleyball, weightlifting, and video games. One thing on 
 Run the script:
 
 ```
-python your_script.py
+python tool_manual_tracking_joint.py
 ```
 
 Two folder selection popups will appear:
